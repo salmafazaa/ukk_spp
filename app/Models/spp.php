@@ -5,20 +5,22 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class spp extends Model
+class Spp extends Model
 {
     use HasFactory;
-    protected $table= 'spp';
-    protected $fillabel= [
+    use HasFactory;
+    protected $table = 'spps';
+    protected $fillable = [
         'tahun',
-        'nominal',
-    ];
-    public function kelas()
-    {
-        return $this ->belongsTo('App\models\kelas','id', 'kelas_id');
+        'nominal'
 
+    ];
+    public function siswa() 
+    {
+        return $this->hasMany('App/Models/Siswa');
+    }
+    public function pembayaran()
+    {
+        return $this->hasMany('App\Models\pembayaran');
     }
 }
-
-
-
