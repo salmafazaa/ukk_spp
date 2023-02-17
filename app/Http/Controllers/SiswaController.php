@@ -15,9 +15,7 @@ class SiswaController extends Controller
     public function index()
     {
         //
-        $siswa = Siswa::select('id', 'nis',
-        'nama', 'kelas_id')->get();
-        return view('siswa.index', compact('siswas'));
+        return view('siswa.index');
     }
 
     /**
@@ -28,9 +26,7 @@ class SiswaController extends Controller
     public function create()
     {
         //
-        $kelas = kelas::select('id','nama_kelas')->get();
-        $spps = spp::select('id','tahun','nominal')->get();
-        return view('siswa.create',compact('kelas','spp'));
+       return view('siswa.create');
     }
 
     /**
@@ -43,14 +39,19 @@ class SiswaController extends Controller
     {
         //
         $request->validate([
-            'nisn' => 'required',
-            'nis' => 'required',
+            'nisn' => 'required|max:10',
+            'nis' => 'required|max:8',
             'nama' => 'required',
             'alamat' => 'required',
             'no_tlp' => 'required',
             'kelas_id' => 'required',
             'spps_id' => 'required',
+        ],[
+            'nisn.required'     => 'Nisn Wajib Di Isi',
+            'nis.required'     => 'Nis Wajib Di Isi',
         ]);
+
+        dd($request);
 
         Siswa::create([
             'nisn' => $request -> nisn,
@@ -62,7 +63,7 @@ class SiswaController extends Controller
             'spps_id' => $request -> spps_id,
 
         ]);
-        return redirect()->route('barang.index');
+        return redirect()->route('siswa.index');
     }
 
     /**

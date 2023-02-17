@@ -15,6 +15,7 @@ class SppController extends Controller
     public function index()
     {
         //
+        return view('spp.index');
     }
 
     /**
